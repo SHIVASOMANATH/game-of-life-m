@@ -30,4 +30,16 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            mail subject: 'your project is affective',
+                 body: 'working',
+                 to: 'all@qts.com'
+        }
+        failure {
+            mail subject: 'your project is defective',
+                 body: 'not working',
+                 to: 'all@qts.com'     
+        }
+    }
 }
