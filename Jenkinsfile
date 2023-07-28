@@ -11,6 +11,10 @@ pipeline {
         maven 'MAVEN_DEFAULT'
         jdk 'JDK_8'
     }
+    parameters {
+        choice(name: 'GOAL', choices: ['package','clean package','install','clean install'],
+         description: 'This is Maven Goal')
+    }
     stages {
         stage('source code') {
             steps {
@@ -20,7 +24,7 @@ pipeline {
         }
         stage('package') {
             steps {
-                sh script: 'mvn package'
+                sh script: "mvn ${params.GOAL}"
             }
         }
         stage('report') {
@@ -32,14 +36,14 @@ pipeline {
     }
     post {
         success {
-            mail subject: 'your project is affective',
-                 body: 'working',
-                 to: 'all@qts.com'
+            mail subject: "${JOB_NAME}: Has Completed Success",
+                 body: "working \n Build Url ${BUILD_URL}",
+                 to: "all@qts.com"
         }
         failure {
-            mail subject: 'your project is defective',
-                 body: 'not working',
-                 to: 'all@qts.com'     
+            mail subject: "${JOB_NAME}: Has Completed with Failed",
+                 body: "not working \n Build Url ${BUILD_URL}",
+                 to: "all@qts.com"    
         }
     }
 }
