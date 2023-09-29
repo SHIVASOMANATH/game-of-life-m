@@ -6,7 +6,7 @@ pipeline {
     }
     tools {
         maven 'Maven_3.6'
-        jdk 'JDK_8'
+        jdk 'JAVA_8'
     }
     parameters {
         choice(name: 'GOAL', choices: ['package','clean package','install','clean install'],
