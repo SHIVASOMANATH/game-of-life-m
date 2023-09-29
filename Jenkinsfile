@@ -29,5 +29,6 @@ pipeline {
                junit testResults: '**/target/surefire-reports/TEST-*.xml'
                archiveArtifacts artifacts: '**/target/gameoflife.war'
            }
+        }
     }
 }
